@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#06172f" />
+  <meta name="description" content="SOMA — transforme pequenas ações em grandes conquistas." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>SOMA — Sua cidade, suas conquistas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-glow glow-a"></div><div class="login-glow glow-b"></div>
+    <div class="login-wrap">
+      <section class="login-art">
+        <div class="brand brand-large"><span class="brand-mark">S</span><span>SOMA<span class="brand-dot">.</span></span></div>
+        <div class="login-art-copy">
+          <span class="eyebrow">PRODUTIVIDADE COM PROPÓSITO</span>
+          <h1>Pequenos passos.<br><em>Grandes cidades.</em></h1>
+          <p>Organize sua rotina, complete missões e veja sua cidade crescer com você.</p>
+        </div>
+        <img class="login-city" src="assets/cidade-principal.png" alt="Cidade ilustrada do SOMA" />
+        <div class="login-art-foot"><span>✦</span> Seu progresso constrói seu mundo.</div>
+      </section>
+      <section class="login-panel">
+        <div class="login-mobile-brand brand"><span class="brand-mark">S</span><span>SOMA<span class="brand-dot">.</span></span></div>
+        <div class="login-heading"><span class="eyebrow">BEM-VINDO DE VOLTA</span><h2 id="loginTitle">Entre na sua cidade</h2><p id="loginSubtitle">Continue de onde sua evolução parou.</p></div>
+        <form id="loginForm" class="login-form">
+          <label for="loginEmail">E-mail</label>
+          <div class="field-wrap"><span class="field-icon">✉</span><input id="loginEmail" type="email" placeholder="voce@email.com" autocomplete="email" required /></div>
+          <label for="loginPassword">Senha</label>
+          <div class="field-wrap"><span class="field-icon">⌑</span><input id="loginPassword" type="password" placeholder="Digite sua senha" autocomplete="current-password" required minlength="4" /><button class="password-toggle" type="button" onclick="togglePassword()" aria-label="Mostrar senha">◉</button></div>
+          <div class="login-options"><label class="remember"><input type="checkbox" id="rememberMe" checked /> <span>Manter conectado</span></label><button type="button" class="link-button" onclick="showToast('Recuperação de senha estará disponível quando o site receber um backend.')">Esqueci minha senha</button></div>
+          <button class="primary-btn login-submit" type="submit"><span id="loginButtonText">Entrar na minha conta</span><span>→</span></button>
+        </form>
+        <div class="login-divider"><span></span> ou <span></span></div>
+        <button class="secondary-btn guest-btn" onclick="enterAsGuest()">Conhecer o SOMA <span>↗</span></button>
+        <p class="signup-line"><span id="signupCopy">Ainda não tem uma conta?</span> <button class="link-button" onclick="toggleRegister()" id="signupAction">Criar conta</button></p>
+        <p class="login-note">Versão demonstrativa · seus dados ficam neste navegador</p>
+      </section>
+    </div>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand"><div class="brand"><span class="brand-mark">S</span><span>SOMA<span class="brand-dot">.</span></span></div><button class="sidebar-collapse" onclick="toggleSidebar()" title="Recolher menu">‹</button></div>
+      <div class="sidebar-profile"><img src="assets/avatar.png" alt="Avatar" /><div><strong id="sidebarUser">José Antônio</strong><span><i class="online-dot"></i> Online agora</span></div><button onclick="setPage('perfil')" aria-label="Abrir perfil">⌄</button></div>
+      <div class="nav-label">MENU PRINCIPAL</div>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <button class="nav-link active" data-page="inicio" onclick="setPage('inicio')"><span class="nav-ico">⌂</span><span>Início</span><kbd>01</kbd></button>
+        <button class="nav-link" data-page="tarefas" onclick="setPage('tarefas')"><span class="nav-ico">☷</span><span>Minhas tarefas</span><kbd>02</kbd><b class="nav-count" id="taskNavCount">3</b></button>
+        <button class="nav-link" data-page="planejamento" onclick="setPage('planejamento')"><span class="nav-ico">▦</span><span>Planejamento</span><kbd>03</kbd></button>
+        <button class="nav-link" data-page="metas" onclick="setPage('metas')"><span class="nav-ico">◎</span><span>Minhas metas</span><kbd>04</kbd></button>
+        <button class="nav-link" data-page="cidade" onclick="setPage('cidade')"><span class="nav-ico">▥</span><span>Minha cidade</span><kbd>05</kbd></button>
+        <div class="nav-label nav-label-space">PESSOAL</div>
+        <button class="nav-link" data-page="perfil" onclick="setPage('perfil')"><span class="nav-ico">♙</span><span>Meu perfil</span><kbd>06</kbd></button>
+        <button class="nav-link" data-page="conquistas" onclick="setPage('conquistas')"><span class="nav-ico">♜</span><span>Conquistas</span><kbd>07</kbd></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-level"><div class="level-top"><span>NÍVEL <b id="sideLevel">5</b></span><span id="sideXp">320/500 XP</span></div><div class="mini-progress"><span id="sideXpBar" style="width:64%"></span></div><p>Continue evoluindo!</p></div>
+        <button class="nav-link" data-page="configuracoes" onclick="setPage('configuracoes')"><span class="nav-ico">⚙</span><span>Configurações</span></button>
+        <button class="logout-link" onclick="logout()"><span>↪</span> Sair da conta</button>
+      </div>
+      <div class="sidebar-foot">SOMA © 2026 <span>Feito para evoluir ✦</span></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-left"><button class="mobile-menu" onclick="toggleMobileMenu()" aria-label="Abrir menu">☰</button><div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="breadcrumbTitle">Visão geral</strong></div></div>
+        <div class="topbar-actions"><div class="top-date"><span class="date-icon">◷</span><span id="topDate">Quarta-feira, 11 de novembro</span></div><button class="icon-btn notification-btn" onclick="openNotifications()" aria-label="Notificações">♧<i></i></button><button class="top-avatar" onclick="setPage('perfil')"><img src="assets/avatar.png" alt="Perfil" /></button></div>
+      </header>
+      <div id="pageContent" class="page-content"></div>
+      <footer class="app-footer"><span>© 2026 SOMA. Todos os direitos reservados.</span><span>Feito com foco na sua evolução <b>✦</b></span></footer>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden" onclick="backdropClose(event)"><section id="modalBox" class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><span class="eyebrow" id="modalEyebrow">SUA EVOLUÇÃO</span><h2 id="modalTitle">Nova tarefa</h2></div><button class="modal-close" onclick="closeModal()" aria-label="Fechar">×</button></div><div id="modalBody"></div></section></div>
+  <div id="toastHost" class="toast-host" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
